@@ -1,0 +1,19 @@
+BigQuery UDF Test Tool
+======================
+
+This is not an official Google product (experimental 
+or otherwise), it is just code that happens to be 
+owned by Google.
+
+This HTML file is intended to assist the creation
+and debugging of BigQuery User-Defined Functions.
+
+Populate the Input Data field with some representative
+test input data.
+
+Populate the Extenstion function field with the specific
+function you would like to test.
+
+For more BigQuery documentation, please visit the BigQuery
+documentation site at 
+https://cloud.google.com/bigquery/what-is-bigquery
