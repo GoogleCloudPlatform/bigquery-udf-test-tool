@@ -14,6 +14,8 @@ test input data.
 Populate the Extenstion function field with the specific
 function you would like to test.
 
+The file is also hosted here: http://storage.googleapis.com/bigquery-udf-test-tool/testtool.html
+
 For more BigQuery documentation, please visit the BigQuery
 documentation site at 
 https://cloud.google.com/bigquery/what-is-bigquery
