@@ -17,69 +17,72 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <html>
-<head>
+<title>BigQuery UDF Test Tool</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
-<script language="javaScript">
+<script language="javascript">
 
 function getInputData() {
-  eval("var theData = " + $("#inputData").val());
+  eval('var theData = ' + $('#inputData').val());
   return theData;
 }
 
 function getUserFunction() {
-  eval("var theFn = " + $("#extensionCode").val());
+  eval('var theFn = ' + $('#udfCode').val());
   return theFn;
 }
 
 function appendText(s) {
-  var text = $("#results").val();
-  $("#results").val(text + s + "\n");
+  var text = $('#results').val();
+  $('#results').val(text + s + '\n');
 }
 
-function stringifyAndAppend(s) {
-  var output = JSON.stringify(s, null, 2);
-  appendText(output);
+// Collates transformed records.
+var results = [];
+
+function appendRecord(o) {
+  results.push(o);
 }
 
 function runEval() {
   try {
     clearResults();
     var input = getInputData();
-    // TODO - check the length of the input args.
     var fn = getUserFunction();
     input.forEach(function(line) {
-      fn(line, stringifyAndAppend);
+      fn(line, appendRecord);
     });
+    appendText(JSON.stringify(results, null, 2));
   } catch (ex) {
     appendText(ex);
   }
 }
 
 function clearResults() {
-  $("#results").val("");
+  $('#results').val('');
+  results = [];
 }
 
 </script>
-</head>
 <body>
 
-Input data: <br/>
+Input data (JSON representation of data to provide to the function): <br/>
 <textarea id="inputData" rows=10 cols=80>
-[{a: "hi there"},
- {a: "BigQuery friends!"}]
+[{a: "Enter your query data"},
+ {a: "here, as JSON,"},
+ {a: "and click 'Evaluate' to run your function over the data rows!"}]
 </textarea>
 <p/>
 
-Extension function: <br/>
-<textarea id="extensionCode" rows=10 cols=80>
+User-defined function: <br/>
+<textarea id="udfCode" rows=10 cols=80>
 function(r, emit) {
-  emit({'len': r.a.length});
+  emit({len: r.a.length});
 }
 </textarea>
 <p/>
 
 Results: <br/>
-<textarea id="results" rows=10 cols=80>
+<textarea id="results" rows=15 cols=80>
 </textarea>
 <p/>
 
